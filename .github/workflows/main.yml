@@ -1,3 +1,4 @@
+# Important! Environment files are based on repository.
 name: CI/CD
 
 on: [push, pull_request]
@@ -12,6 +13,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
 
       # Test
       - name: Run tests
