@@ -1,7 +1,6 @@
 name: Acquire activation file
 
-on:
-  workflow_dispatch: {}
+on: [workflow_dispatch]
 
 jobs:
   activation:
@@ -12,6 +11,7 @@ jobs:
       - name: Request manual activation file
         id: getManualLicenseFile
         uses: game-ci/unity-request-activation-file@v2
+        
       # Upload artifact (Unity_v20XX.X.XXXX.alf)
       - name: Expose as artifact
         uses: actions/upload-artifact@v2
