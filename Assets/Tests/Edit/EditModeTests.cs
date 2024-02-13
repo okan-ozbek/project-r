@@ -9,13 +9,13 @@ namespace Tests.Edit
         {
             const int a = 2;
             const int b = 3;
-            const int c = 2;
 
             Assert.IsNotNull(a);
             Assert.IsNotNull(b);
             Assert.AreEqual((a + b), 5);
             Assert.AreNotEqual(a, b);
-
+        }
+        
         [Test]
         public void CheckStringPasses()
         {
