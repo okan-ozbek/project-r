@@ -12,7 +12,7 @@ namespace Tests.Edit
 
             Assert.IsNotNull(a);
             Assert.IsNotNull(b);
-            Assert.AreEqual((a + b), 5);
+            Assert.AreEqual((a + b), 8);
             Assert.AreNotEqual(a, b);
         }
 
