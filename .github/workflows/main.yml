@@ -3,9 +3,13 @@ name: CI/CD Actions
 on: 
   push: 
     branches: 
-      - develop
-      - master
-  pull_request: {}
+      - 'develop'
+      - 'master'
+  pull_request: 
+    branches:
+      - '*'
+      - '!master'
+      - '!develop'
 
 jobs:
   test:
