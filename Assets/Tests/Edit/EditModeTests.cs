@@ -9,11 +9,12 @@ namespace Tests.Edit
         {
             const int a = 2;
             const int b = 3;
+            const int c = 2;
 
             Assert.IsNotNull(a);
             Assert.IsNotNull(b);
             Assert.AreEqual((a + b), 8);
-            Assert.AreNotEqual(a, b);
+            Assert.AreNotEqual(a, c);
         }
 
         [Test]
