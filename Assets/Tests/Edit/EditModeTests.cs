@@ -1,28 +1,44 @@
+using Components;
 using NUnit.Framework;
 
 namespace Tests.Edit
 {
     public class EditModeTests
     {
-        [Test]
-        public void CheckSumPasses()
-        {
-            const int a = 2;
-            const int b = 3;
+        private Entity _entity;
 
-            Assert.IsNotNull(a);
-            Assert.IsNotNull(b);
-            Assert.AreEqual((a + b), 5);
-            Assert.AreNotEqual(a, b);
+        [Test]
+        public void T0000_NewEntityExists_NotNull()
+        {
+            _entity = new Entity(new Health(100.0f));
+
+            Assert.IsNotNull(_entity);
         }
-        
-        [Test]
-        public void CheckStringPasses()
-        {
-            const string a = "Peepeepoopoo";
 
-            Assert.IsNotNull(a);
-            Assert.AreEqual("Peepeepoopoo", a);
+        [Test]
+        public void T0001_CheckIfAliveAfter10Damage_IsAliveTrueHasDiedFalse()
+        {
+            _entity.Damageable.TakeDamage(10);
+            
+            Assert.True(_entity.Health.IsAlive());
+            Assert.False(_entity.Health.HasDied());
+        }
+
+        [Test]
+        public void T0002_CheckIfAliveAfter150Damage_IsAliveFalseHasDiedTrue()
+        {
+            _entity.Damageable.TakeDamage(150);
+            
+            Assert.False(_entity.Health.IsAlive());
+            Assert.True(_entity.Health.HasDied());
+        }
+
+        [Test]
+        public void T0003_CheckIfHealthNotBelowZero_HealthValueAbove0()
+        {
+            _entity.Damageable.TakeDamage(150);
+            
+            Assert.GreaterOrEqual(_entity.Health.Value, 0.0f);
         }
     }
 }
