@@ -45,5 +45,12 @@ namespace Tests.Edit
             
             Assert.AreEqual(0.0f, entity.Health.Value);
         }
+
+        [Test]
+        public void T0001_CheckPlayerStateSwitchFromGroundedToJump_StateEqualsJumpStateClass()
+        {
+            // TODO this should be a playtime unit test
+            // TODO look into how they work
+        }
     }
 }
