@@ -1,4 +1,4 @@
-name: 'Pull Request Automatation'
+name: Pull Request Automatation
 
 on: 
   pull_request_target:
@@ -6,6 +6,7 @@ on:
 
 jobs: 
   add-assginee: 
+    name: Pull Request - Set Assignee
     runs-on: ubuntu-latest
     steps:
       - uses: kentaro-m/auto-assign-action@v2.0.0
