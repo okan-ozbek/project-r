@@ -5,40 +5,45 @@ namespace Tests.Edit
 {
     public class EditModeTests
     {
-        private Entity _entity;
-
+        // TODO this should be refactored to have its own entity class
         [Test]
-        public void T0000_NewEntityExists_NotNull()
+        public void T0000_NewEntityExists_EntityNotNull()
         {
-            _entity = new Entity(new Health(100.0f));
+            var entity  = new Entity(new Health(100.0f));
 
-            Assert.IsNotNull(_entity);
+            Assert.IsNotNull(entity);
         }
 
         [Test]
-        public void T0001_CheckIfAliveAfter10Damage_IsAliveTrueHasDiedFalse()
+        public void T0001_CheckIfAliveAfterTenDamage_IsAliveTrueHasDiedFalse()
         {
-            _entity.Damageable.TakeDamage(10);
+            var entity = new Entity(new Health(100.0f));
             
-            Assert.True(_entity.Health.IsAlive());
-            Assert.False(_entity.Health.HasDied());
+            entity.Damageable.TakeDamage(10.0f);
+            
+            Assert.True(entity.Health.IsAlive());
+            Assert.False(entity.Health.HasDied());
         }
 
         [Test]
-        public void T0002_CheckIfAliveAfter150Damage_IsAliveFalseHasDiedTrue()
+        public void T0002_CheckIfAliveAfterHundredDamage_IsAliveFalseHasDiedTrue()
         {
-            _entity.Damageable.TakeDamage(150);
+            var entity = new Entity(new Health(100.0f));
             
-            Assert.False(_entity.Health.IsAlive());
-            Assert.True(_entity.Health.HasDied());
+            entity.Damageable.TakeDamage(100.0f);
+            
+            Assert.False(entity.Health.IsAlive());
+            Assert.True(entity.Health.HasDied());
         }
 
         [Test]
-        public void T0003_CheckIfHealthNotBelowZero_HealthValueAbove0()
+        public void T0003_CheckIfHealthNotBelowZeroAfterHundredDamage_HealthEqualsZero()
         {
-            _entity.Damageable.TakeDamage(150);
+            var entity = new Entity(new Health(100.0f));
             
-            Assert.GreaterOrEqual(_entity.Health.Value, 0.0f);
+            entity.Damageable.TakeDamage(100.0f);
+            
+            Assert.AreEqual(0.0f, entity.Health.Value);
         }
     }
 }
