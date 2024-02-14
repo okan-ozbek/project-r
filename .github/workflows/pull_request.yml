@@ -10,16 +10,3 @@ jobs:
       - uses: kentaro-m/auto-assign-action@v2.0.0
         with:
           configuration-path: '.github/configs/auto_assign.yml'
-  label:
-    runs-on: ubuntu-latest
-    permissions: 
-      issues: write
-      pull-requests: write
-    steps:
-      - uses: mheap/github-action-required-labels@v5
-        with: 
-          mode: exactly
-          count: 1
-          labels: 'bug, documentation, experimentation, feature, question, update'
-          add_comment: true
-          message: 'Pull request is being prevented from merging, please add exactly one label to the pull request.'
