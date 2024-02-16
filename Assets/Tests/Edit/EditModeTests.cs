@@ -1,5 +1,6 @@
 using Components;
 using NUnit.Framework;
+using Test;
 
 namespace Tests.Edit
 {
