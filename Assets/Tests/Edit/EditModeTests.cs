@@ -1,5 +1,6 @@
 using Components;
 using NUnit.Framework;
+using Test;
 
 namespace Tests.Edit
 {
@@ -47,10 +48,10 @@ namespace Tests.Edit
         }
 
         [Test]
-        public void T0001_CheckPlayerStateSwitchFromGroundedToJump_StateEqualsJumpStateClass()
+        public void T0001_CheckGenericStateMachineSwitchesStates_AssertTrueForEachStateSwitch()
         {
-            // TODO this should be a playtime unit test
-            // TODO look into how they work
+            TestStateMachine testStateMachine = new TestStateMachine();
+            testStateMachine.Run();
         }
     }
 }

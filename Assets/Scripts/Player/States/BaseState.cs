@@ -1,9 +1,8 @@
 using Player.Factories;
-using Player.Interfaces;
 
 namespace Player.States
 {
-    public abstract class BaseState : IIBaseState
+    public abstract class BaseState
     {
         protected BaseState CurrentState;
         protected PlayerContext Context;
