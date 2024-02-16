@@ -1,22 +1,21 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace StateMachine
+namespace StateMachine.Test
 {
-    public abstract class StateManager<TStates> : MonoBehaviour where TStates : Enum
+    public abstract class TestStateManager<TStates> where TStates : Enum
     {
         public Dictionary<TStates, BaseState<TStates>> States = new();
         public BaseState<TStates> CurrentState { get;  set; }
 
         private bool _isTransitioning;
 
-        private void Start()
+        protected void Start()
         {
             CurrentState.OnStateEnter();
         }
-        
-        private void Update()
+
+        protected void Update()
         {
             if (CanRunUpdate())
             {

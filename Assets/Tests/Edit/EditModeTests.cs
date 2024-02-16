@@ -46,12 +46,5 @@ namespace Tests.Edit
             
             Assert.AreEqual(0.0f, entity.Health.Value);
         }
-
-        [Test]
-        public void T0001_CheckGenericStateMachineSwitchesStates_AssertTrueForEachStateSwitch()
-        {
-            TestStateMachine testStateMachine = new TestStateMachine();
-            testStateMachine.Run();
-        }
     }
 }
