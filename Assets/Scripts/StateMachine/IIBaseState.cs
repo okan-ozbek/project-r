@@ -1,5 +1,3 @@
-using Player.States;
-
 namespace StateMachine
 {
     public interface IIBaseState<out TStates>

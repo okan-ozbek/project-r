@@ -11,12 +11,12 @@ namespace StateMachine
 
         private bool _isTransitioning;
 
-        private void Start()
+        protected virtual void Start()
         {
             CurrentState.OnStateEnter();
         }
         
-        private void Update()
+        protected virtual void Update()
         {
             if (CanRunUpdate())
             {
