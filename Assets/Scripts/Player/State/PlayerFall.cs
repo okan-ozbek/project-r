@@ -2,7 +2,7 @@ using Player.Enum;
 
 namespace Player.State
 {
-    public class PlayerFall : PlayerState
+    public sealed class PlayerFall : PlayerState
     {
         public PlayerFall(PlayerStateMachine context, PlayerStateEnum name) : base(context, name)
         {

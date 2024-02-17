@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.Component
 {
-    public class PlayerInput
+    public sealed class PlayerInput
     {
         public Vector3 Direction;
         public bool HasPressedSprint;

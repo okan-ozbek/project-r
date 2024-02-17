@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Codice.CM.Common;
 using UnityEngine;
 
 namespace StateMachine
 {
     public abstract class StateManager<TStates> : MonoBehaviour where TStates : Enum
     {
-        public Dictionary<TStates, BaseState<TStates>> States = new();
-        public BaseState<TStates> CurrentState { get;  set; }
+        protected readonly Dictionary<TStates, BaseState<TStates>> States = new();
+        protected BaseState<TStates> CurrentState { get;  set; }
 
         private bool _isTransitioning;
 
@@ -26,7 +27,24 @@ namespace StateMachine
                 {
                     TransitionTo(newStateName);
                 }
+             
+                CurrentState.OnStateUpdate();
             }
+        }
+
+        protected void FixedUpdate()
+        {
+            CurrentState.OnStateFixedUpdate();
+        }
+
+        protected void OnTriggerEnter(Collider other)
+        {
+            CurrentState.OnStateTriggerEnter(other);
+        }
+
+        protected void OnCollisionEnter(Collision other)
+        {
+            CurrentState.OnStateCollisionEnter(other);
         }
 
         private void TransitionTo(TStates stateName)

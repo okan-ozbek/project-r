@@ -3,12 +3,17 @@ using Player.Enum;
 using Player.State;
 using StateMachine;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Player
 {
+    /*
+     * TODO
+     * **** Figure out a way to make the states not be so ugly.
+     * **** See if I can refrain from using the override function for the monobehaviour classes.
+     */ 
+    
     [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
-    public class PlayerStateMachine : StateManager<PlayerStateEnum>
+    public sealed class PlayerStateMachine : StateManager<PlayerStateEnum>
     {
         public float Speed => (Input.HasPressedSprint)
             ? runSpeed
@@ -31,11 +36,13 @@ namespace Player
             Input = new PlayerInput();
             Movement = new PlayerMovement(this);
             
-            base.Start();
-            
             States.Add(PlayerStateEnum.Fall, new PlayerFall(this, PlayerStateEnum.Fall));
             States.Add(PlayerStateEnum.Grounded, new PlayerGrounded(this, PlayerStateEnum.Grounded));
             States.Add(PlayerStateEnum.Jump, new PlayerJump(this, PlayerStateEnum.Jump));
+
+            CurrentState = States[PlayerStateEnum.Grounded];
+            
+            base.Start();
         }
 
         protected override void Update()

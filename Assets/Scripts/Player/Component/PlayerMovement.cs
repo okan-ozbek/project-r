@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.Component
 {
-    public class PlayerMovement
+    public sealed class PlayerMovement
     {
         private PlayerStateMachine _context;
         
@@ -13,7 +13,7 @@ namespace Player.Component
 
         public void Update()
         {
-            _context.rigidbody.velocity = _context.Input.Direction * _context.Speed * Time.deltaTime;
+            _context.rigidbody.velocity = _context.Input.Direction * _context.Speed;
         }
     }
 }

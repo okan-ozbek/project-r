@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace StateMachine
 {
@@ -11,8 +12,11 @@ namespace StateMachine
             Name = name;
         }
         public virtual void OnStateEnter() {}
-        public virtual void OnStateUpdate() {} 
+        public virtual void OnStateUpdate() {}
+        public virtual void OnStateFixedUpdate() {}
         public virtual void OnStateLeave() {}
+        public virtual void OnStateTriggerEnter(Collider other) {}
+        public virtual void OnStateCollisionEnter(Collision other) {}
 
         public abstract TStates GetNewState();
     }
