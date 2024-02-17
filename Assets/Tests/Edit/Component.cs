@@ -1,17 +1,15 @@
 using Component;
-using Components;
 using NUnit.Framework;
-using Test;
 
 namespace Tests.Edit
 {
-    public class EditModeTests
+    public class Component
     {
         // TODO this should be refactored to have its own entity class
         [Test]
         public void T0000_NewEntityExists_EntityNotNull()
         {
-            var entity  = new Entity(new Health(100.0f));
+            var entity = new Entity(new Health(100.0f));
 
             Assert.IsNotNull(entity);
         }

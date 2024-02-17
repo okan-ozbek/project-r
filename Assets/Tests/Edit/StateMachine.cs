@@ -36,7 +36,7 @@ namespace Tests.Edit
         public void T0004_CheckStateMachineEntersState001_AssertCurrentStateEqualsState001()
         {
             _testStateMachine.OnStart();
-            Assert.IsTrue(_testStateMachine.CurrentState.Name.Equals(TestStateEnum.State001));
+            Assert.IsTrue(_testStateMachine.CurrentState.StateName.Equals(TestStateEnum.State001));
         }
 
         [Test]
@@ -49,13 +49,13 @@ namespace Tests.Edit
         public void T0006_CheckStateMachineEntersState002_AssertCurrentStateEqualsState002()
         {
             _testStateMachine.OnUpdate();
-            Assert.IsTrue(_testStateMachine.CurrentState.Name.Equals(TestStateEnum.State002));
+            Assert.IsTrue(_testStateMachine.CurrentState.StateName.Equals(TestStateEnum.State002));
         }
         
         [Test]
         public void T0007_CheckStateMachineStaysState002WithoutUpdate_AssertCurrentStateEqualsState002()
         {
-            Assert.IsTrue(_testStateMachine.CurrentState.Name.Equals(TestStateEnum.State002));
+            Assert.IsTrue(_testStateMachine.CurrentState.StateName.Equals(TestStateEnum.State002));
         }
         
         [Test]
@@ -68,7 +68,7 @@ namespace Tests.Edit
         public void T0009_CheckStateMachineEntersState003_AssertCurrentStateEqualsState003()
         {
             _testStateMachine.OnUpdate();
-            Assert.IsTrue(_testStateMachine.CurrentState.Name.Equals(TestStateEnum.State003));
+            Assert.IsTrue(_testStateMachine.CurrentState.StateName.Equals(TestStateEnum.State003));
         }
         
         [Test]
