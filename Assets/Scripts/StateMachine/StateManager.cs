@@ -14,22 +14,26 @@ namespace StateMachine
 
         protected virtual void Start()
         {
+            InitializeStates();
+            
             CurrentState.OnStateEnter();
         }
         
         protected virtual void Update()
         {
-            if (CanRunUpdate())
+            if (!CanRunUpdate())
             {
-                TStates newStateName = CurrentState.GetNewState();
-
-                if (IsNewState(newStateName))
-                {
-                    TransitionTo(newStateName);
-                }
-             
-                CurrentState.OnStateUpdate();
+                return;
             }
+            
+            var newStateName = CurrentState.GetNewState();
+
+            if (IsNewState(newStateName))
+            {
+                TransitionTo(newStateName);
+            }
+             
+            CurrentState.OnStateUpdate();
         }
 
         protected void FixedUpdate()
@@ -47,6 +51,8 @@ namespace StateMachine
             CurrentState.OnStateCollisionEnter(other);
         }
 
+        protected abstract void InitializeStates();
+        
         private void TransitionTo(TStates stateName)
         {
             _isTransitioning = true;
@@ -65,7 +71,7 @@ namespace StateMachine
 
         private bool IsNewState(TStates newStateName)
         {
-            return (newStateName.Equals(CurrentState.Name) == false);
+            return (newStateName.Equals(CurrentState.StateName) == false);
         }
     }
 }

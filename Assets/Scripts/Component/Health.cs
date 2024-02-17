@@ -1,4 +1,4 @@
-namespace Components
+namespace Component
 {
     public class Health
     {

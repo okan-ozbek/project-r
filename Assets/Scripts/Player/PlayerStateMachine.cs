@@ -1,3 +1,4 @@
+using Component;
 using Player.Component;
 using Player.Enum;
 using Player.State;
@@ -6,41 +7,20 @@ using UnityEngine;
 
 namespace Player
 {
-    /*
-     * TODO
-     * **** Figure out a way to make the states not be so ugly.
-     * **** See if I can refrain from using the override function for the monobehaviour classes.
-     */ 
-    
     [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
     public sealed class PlayerStateMachine : StateManager<PlayerStateEnum>
     {
-        public float Speed => (Input.HasPressedSprint)
-            ? runSpeed
-            : walkSpeed;
+        [SerializeField] private float healthAmount;
         
-        public float walkSpeed;
-        public float runSpeed;
-        
-        public new Rigidbody rigidbody;
-        public BoxCollider boxCollider;
+        [HideInInspector] public new Rigidbody rigidbody;
+        [HideInInspector] public BoxCollider boxCollider;
 
-        public PlayerInput Input;
-        public PlayerMovement Movement;
+        [HideInInspector] public PlayerInput Input;
+        [HideInInspector] public Entity Entity;
 
         protected override void Start()
         {
-            rigidbody = GetComponent<Rigidbody>();
-            boxCollider = GetComponent<BoxCollider>();
-
-            Input = new PlayerInput();
-            Movement = new PlayerMovement(this);
-            
-            States.Add(PlayerStateEnum.Fall, new PlayerFall(this, PlayerStateEnum.Fall));
-            States.Add(PlayerStateEnum.Grounded, new PlayerGrounded(this, PlayerStateEnum.Grounded));
-            States.Add(PlayerStateEnum.Jump, new PlayerJump(this, PlayerStateEnum.Jump));
-
-            CurrentState = States[PlayerStateEnum.Grounded];
+            InitializeComponents();
             
             base.Start();
         }
@@ -51,12 +31,23 @@ namespace Player
             
             base.Update();
         }
-        
-        public bool OnGround()
+
+        protected override void InitializeStates()
         {
-            var distanceToGround = boxCollider.bounds.extents.y;
+            States.Add(PlayerStateEnum.Move, new PlayerMove(this, PlayerStateEnum.Move));
+            States.Add(PlayerStateEnum.Dash, new PlayerDash(this, PlayerStateEnum.Dash));
+            States.Add(PlayerStateEnum.Attack, new PlayerAttack(this, PlayerStateEnum.Attack));
             
-            return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + 0.1f);
+            CurrentState = States[PlayerStateEnum.Move];
+        }
+
+        private void InitializeComponents()
+        {
+            rigidbody = GetComponent<Rigidbody>();
+            boxCollider = GetComponent<BoxCollider>();
+            
+            Input = new PlayerInput();
+            Entity = new Entity(new Health(healthAmount));
         }
     }
 }

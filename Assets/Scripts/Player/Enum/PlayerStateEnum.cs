@@ -2,8 +2,11 @@ namespace Player.Enum
 {
     public enum PlayerStateEnum
     {
-        Jump,
-        Fall,
-        Grounded,
+        Move, 
+        Dash,
+        Attack,
+        Death,
+        Respawn,
+        Hit,
     }
 }

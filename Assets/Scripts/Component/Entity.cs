@@ -1,9 +1,9 @@
-namespace Components
+namespace Component
 {
     public class Entity
     {
-        public Health Health;
-        public Damageable Damageable;
+        public readonly Health Health;
+        public readonly Damageable Damageable;
 
         public Entity(Health health)
         {

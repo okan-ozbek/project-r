@@ -5,11 +5,12 @@ namespace StateMachine
 {
     public abstract class BaseState<TStates> : IIBaseState<TStates> where TStates : Enum
     {
-        public readonly TStates Name;
+        public readonly TStates StateName;
+        public readonly TStates PreviousStateName;
         
         protected BaseState(TStates name)
         {
-            Name = name;
+            StateName = name;
         }
         public virtual void OnStateEnter() {}
         public virtual void OnStateUpdate() {}

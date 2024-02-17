@@ -5,8 +5,8 @@ namespace StateMachine.Test
 {
     public abstract class TestStateManager<TStates> where TStates : Enum
     {
-        public Dictionary<TStates, BaseState<TStates>> States = new();
-        public BaseState<TStates> CurrentState { get;  set; }
+        public readonly Dictionary<TStates, BaseState<TStates>> States = new();
+        public BaseState<TStates> CurrentState { get; protected set; }
 
         private bool _isTransitioning;
 
@@ -17,14 +17,16 @@ namespace StateMachine.Test
 
         protected void Update()
         {
-            if (CanRunUpdate())
+            if (!CanRunUpdate())
             {
-                TStates newStateName = CurrentState.GetNewState();
+                return;
+            }
+            
+            var newStateName = CurrentState.GetNewState();
 
-                if (IsNewState(newStateName))
-                {
-                    TransitionTo(newStateName);
-                }
+            if (IsNewState(newStateName))
+            {
+                TransitionTo(newStateName);
             }
         }
 
@@ -46,7 +48,7 @@ namespace StateMachine.Test
 
         private bool IsNewState(TStates newStateName)
         {
-            return (newStateName.Equals(CurrentState.Name) == false);
+            return (newStateName.Equals(CurrentState.StateName) == false);
         }
     }
 }
