@@ -1,9 +1,9 @@
-using Player.Enum;
+using New.Enums;
 using UnityEngine;
 
-namespace Player.State
+namespace New.Player.States
 {
-    public sealed class PlayerMove : PlayerState
+    public class PlayerMoveState : PlayerBaseState
     {
         private float Speed => (Context.Input.HasPressedSprint)
             ? MaxRunSpeed
@@ -14,35 +14,35 @@ namespace Player.State
 
         private const float AccelerationSpeed = 0.5f;
         private const float DecelerationSpeed = 1.2f;
+        
+        public PlayerMoveState(PlayerStateMachine context) : base(PlayerStatesEnum.Move, context) { }
 
-        public PlayerMove(PlayerStateMachine context, PlayerStateEnum name) : base(context, name) { }
-
-        public override void OnStateUpdate()
+        public override void Update()
         {
+            base.Update();
+
             Acceleration();
             Deceleration();
         }
 
-        public override PlayerStateEnum GetNewState()
+        public override void CheckStateSwitch()
         {
             if (Context.Entity.Health.HasDied())
             {
-                return PlayerStateEnum.Death;
+                Context.TransitionTo(PlayerStatesEnum.Death);
             }
 
             if (Context.Input.HasPressedAttack)
             {
-                return PlayerStateEnum.Attack;
+                Context.TransitionTo(PlayerStatesEnum.Attack);
             }
 
             if (Context.Input.HasPressedDash)
             {
-                return PlayerStateEnum.Dash;
+                Context.TransitionTo(PlayerStatesEnum.Dash);
             }
-
-            return PlayerStateEnum.Move;
         }
-
+        
         private void Acceleration()
         {
             var movementDirection = Context.Input.Direction.normalized;

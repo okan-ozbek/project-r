@@ -1,8 +1,8 @@
 using System;
 using NUnit.Framework;
-using StateMachine.Test;
 using Test;
 using Assert = UnityEngine.Assertions.Assert;
+using TestStateMachine = StateMachine.Test.TestStateMachine;
 
 namespace Tests.Edit
 {
