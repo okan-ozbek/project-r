@@ -11,17 +11,17 @@ namespace Component
 
         public void TakeDamage(float amount)
         {
-            if (_health.IsAlive()) 
-            {
-                var newHealthValue = _health.Value - amount;
+            if (!_health.IsAlive()) 
+                return;
+            
+            var newHealthValue = _health.Value - amount;
                 
-                if (newHealthValue < 0.0f) 
-                {
-                    newHealthValue = 0.0f;
-                }
-
-                _health.ChangeHealth(newHealthValue);
+            if (newHealthValue < 0.0f) 
+            {
+                newHealthValue = 0.0f;
             }
+
+            _health.ChangeHealth(newHealthValue);
         }
     }
 }

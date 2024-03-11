@@ -1,53 +1,53 @@
+using System.Collections.Generic;
 using Component;
-using Player.Component;
-using Player.Enum;
-using Player.State;
-using StateMachine;
+using Enums;
+using Player.Components;
+using Player.States;
+using State_Machine;
 using UnityEngine;
 
 namespace Player
 {
-    [RequireComponent(typeof(BoxCollider), typeof(Rigidbody))]
-    public sealed class PlayerStateMachine : StateManager<PlayerStateEnum>
+    public class PlayerStateMachine : GenericFiniteStateMachine<PlayerStatesEnum>
     {
         [SerializeField] private float healthAmount = 100;
         
         [HideInInspector] public new Rigidbody rigidbody;
         [HideInInspector] public BoxCollider boxCollider;
-
-        [HideInInspector] public PlayerInput Input;
-        [HideInInspector] public Entity Entity;
-
-        protected override void Start()
+        
+        public PlayerInput PlayerInput;
+        public Entity Entity;
+    
+        private void Start()
         {
-            InitializeComponents();
+            PlayerInput = new PlayerInput();
             
-            base.Start();
+            SetComponents();
+            SetStates(PlayerStatesEnum.Move);
         }
 
-        protected override void Update()
+        private void Update()
         {
-            Input.Update();
-            
-            base.Update();
+            PlayerInput.Update();
+            CurrentState.Update();
+        }
+    
+        protected override Dictionary<PlayerStatesEnum, GenericBaseState<PlayerStatesEnum>> GetStates()
+        {
+            return new Dictionary<PlayerStatesEnum, GenericBaseState<PlayerStatesEnum>>
+            {
+                { PlayerStatesEnum.Attack, new PlayerAttackState(this) },
+                { PlayerStatesEnum.Dash, new PlayerDashState(this) },
+                { PlayerStatesEnum.Hit, new PlayerHitState(this) },
+                { PlayerStatesEnum.Move, new PlayerMoveState(this) }
+            };
         }
 
-        protected override void InitializeStates()
-        {
-            States.Add(PlayerStateEnum.Move, new PlayerMove(this, PlayerStateEnum.Move));
-            States.Add(PlayerStateEnum.Dash, new PlayerDash(this, PlayerStateEnum.Dash));
-            States.Add(PlayerStateEnum.Attack, new PlayerAttack(this, PlayerStateEnum.Attack));
-            States.Add(PlayerStateEnum.Hit, new PlayerHit(this, PlayerStateEnum.Hit));
-            
-            CurrentState = States[PlayerStateEnum.Move];
-        }
-
-        private void InitializeComponents()
+        private void SetComponents()
         {
             rigidbody = GetComponent<Rigidbody>();
             boxCollider = GetComponent<BoxCollider>();
-            
-            Input = new PlayerInput();
+        
             Entity = new Entity(new Health(healthAmount));
         }
     }

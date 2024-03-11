@@ -16,12 +16,12 @@ namespace Component
 
         public bool IsAlive()
         {
-            return (Value > 0.0f);
+            return Value > 0.0f;
         }
 
         public bool HasDied()
         {
-            return (Value <= 0.0f);
+            return Value <= 0.0f;
         }
     }
 }
